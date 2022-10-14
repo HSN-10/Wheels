@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ImageOfPost extends Model
 {
     use HasFactory;
+
+    public function posts()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
