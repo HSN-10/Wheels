@@ -33,7 +33,7 @@ return new class extends Migration
             $table->integer('kilometrage')->nullable();
             $table->string('gas_type')->nullable();
             $table->integer('doors')->nullable();
-            $table->integer('enginec_cylinders')->nullable();
+            $table->integer('engine_cylinders')->nullable();
             $table->string('condition')->nullable();
 
             $table->timestamps();
