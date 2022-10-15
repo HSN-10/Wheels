@@ -40,10 +40,8 @@ return new class extends Migration
             $table->integer('number_of_owners');
             $table->integer('number_of_accidents');
 
-
-
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
