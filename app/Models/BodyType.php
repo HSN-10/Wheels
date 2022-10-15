@@ -9,6 +9,10 @@ class BodyType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'icon'
+    ];
 
     public function alerts()
     {

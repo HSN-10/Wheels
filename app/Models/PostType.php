@@ -9,6 +9,11 @@ class PostType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'icon'
+    ];
+
     public function posts()
     {
         return $this->hasMany(Post::class);

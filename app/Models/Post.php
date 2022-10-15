@@ -9,6 +9,30 @@ class Post extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        // post details
+        'title',
+        'description',
+        'price',
+        'is_ask_price',
+        'user_id',
+
+        // car details
+        'maker',
+        'model',
+        'colour',
+        'years',
+        'body_type_id',
+        'transmission_tpye',
+        'kilometrage',
+        'gas_type',
+        'doors',
+        'engine_cylinders',
+        'condition',
+        'number_of_owners',
+        'number_of_accidents'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);
