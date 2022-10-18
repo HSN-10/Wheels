@@ -32,3 +32,12 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('post/{id}', 'post');
     // TODO: NEED API FOR SEARCH
 });
+
+Route::middleware('auth:sanctum')->controller(UserController::class)->group(function(){
+    Route::post('createPost', 'createPost');
+    Route::post('counterOffer/{id}', 'counterOffer');
+    Route::get('counterOffers', 'counterOffers');
+    Route::post('createAlert', 'createAlert');
+    Route::get('alerts', 'alerts');
+    Route::post('updateProfile', 'updateProfile');
+});
