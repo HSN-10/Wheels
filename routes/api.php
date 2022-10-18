@@ -26,7 +26,7 @@ Route::prefix('auth')->controller(AuthController::class)->group(function(){
     Route::post('login', 'login');
 });
 
-Route::controller(HomeController::class)->group(function(){
+Route::controller(GuestController::class)->group(function(){
     Route::get('bodyType', 'getBodyType');
     Route::get('lastPosts', 'lastPosts');
     Route::get('post/{id}', 'post');

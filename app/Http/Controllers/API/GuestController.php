@@ -7,7 +7,7 @@ use App\Models\BodyType;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class GuestController extends Controller
 {
     /**
      * Get All Body Type
