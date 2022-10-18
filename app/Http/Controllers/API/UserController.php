@@ -147,12 +147,12 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         try{
+            $user = Auth::user();
             $validate = Validator::make($request->all(),
             [
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required',
-                'phone' => 'required|integer|digits:8|unique:users,phone'
+                'email' => 'required|email|unique:users,email,'. $user->id,
+                'phone' => 'required|integer|digits:8|unique:users,phone,'. $user->id
             ]);
 
             if($validate->fails())
@@ -161,12 +161,12 @@ class UserController extends Controller
                     'errors' => $validate->errors()
                 ], 400);
 
-            $user = Auth::user();
+
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
 
-
+            return response()->json($user, 200);
 
         }catch(\Throwable $th){
             return response()->json([
