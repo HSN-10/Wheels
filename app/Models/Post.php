@@ -25,7 +25,7 @@ class Post extends Model
         'colour',
         'years',
         'body_type_id',
-        'transmission_tpye',
+        'transmission_type',
         'kilometrage',
         'gas_type',
         'doors',
