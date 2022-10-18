@@ -161,6 +161,12 @@ class UserController extends Controller
                     'errors' => $validate->errors()
                 ], 400);
 
+            $user = Auth::user();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+
+
 
         }catch(\Throwable $th){
             return response()->json([

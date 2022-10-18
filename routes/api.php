@@ -39,5 +39,5 @@ Route::middleware('auth:sanctum')->controller(UserController::class)->group(func
     Route::get('counterOffers', 'counterOffers');
     Route::post('createAlert', 'createAlert');
     Route::get('alerts', 'alerts');
-    Route::post('updateProfile', 'updateProfile');
+    Route::put('updateProfile', 'updateProfile');
 });
