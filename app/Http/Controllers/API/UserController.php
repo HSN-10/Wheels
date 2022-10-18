@@ -45,7 +45,7 @@ class UserController extends Controller
 
             $post = Auth::user()->posts()->create($request->all());
 
-            return response()->json($post, 200);
+            return response()->json($post, 201);
 
         }catch(\Throwable $th){
             return response()->json([
@@ -77,7 +77,7 @@ class UserController extends Controller
 
             $counterOffer = $post->counter_offers()->create($request->all());
 
-            return $counterOffer;
+            return response()->json($counterOffer, 201);
 
         }catch(\Throwable $th){
             return response()->json([
@@ -122,7 +122,7 @@ class UserController extends Controller
 
             $alert = Auth::user()->alerts()->create($request->all());
 
-            return response()->json($alert, 200);
+            return response()->json($alert, 201);
 
         }catch(\Throwable $th){
             return response()->json([
@@ -174,4 +174,5 @@ class UserController extends Controller
             ], 500);
         }
     }
+
 }

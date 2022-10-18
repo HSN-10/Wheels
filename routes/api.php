@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\HomeController;
+use App\Http\Controllers\API\GuestController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +31,7 @@ Route::controller(GuestController::class)->group(function(){
     Route::get('lastPosts', 'lastPosts');
     Route::get('post/{id}', 'post');
     // TODO: NEED API FOR SEARCH
+    Route::post('report/{id}', 'report');
 });
 
 Route::middleware('auth:sanctum')->controller(UserController::class)->group(function(){
