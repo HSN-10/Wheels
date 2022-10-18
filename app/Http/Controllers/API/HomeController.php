@@ -27,11 +27,11 @@ class HomeController extends Controller
         return Post::orderBy('created_at', 'desc')->limit(10)->get();
     }
     /**
-     * @param Post $post
+     * @param $id
      * @return Post
      */
-    public function post(Post $post)
+    public function post($id)
     {
-        return $post;
+        return Post::where('id', '=', $id)->first();
     }
 }
