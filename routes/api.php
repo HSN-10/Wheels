@@ -28,17 +28,18 @@ Route::prefix('auth')->controller(AuthController::class)->group(function(){
 
 Route::controller(GuestController::class)->group(function(){
     Route::get('bodyType', 'getBodyType');
-    Route::get('lastPosts', 'lastPosts');
+    Route::get('post/latest', 'lastPosts');
     Route::get('post/{id}', 'post');
     // TODO: NEED API FOR SEARCH
     Route::post('report/{id}', 'report');
 });
 
 Route::middleware('auth:sanctum')->controller(UserController::class)->group(function(){
-    Route::post('createPost', 'createPost');
+    Route::post('post/create', 'createPost');
+    Route::put('post/{id}/edit', 'editPost');
     Route::post('counterOffer/{id}', 'counterOffer');
     Route::get('counterOffers', 'counterOffers');
-    Route::post('createAlert', 'createAlert');
+    Route::post('alert/create', 'createAlert');
     Route::get('alerts', 'alerts');
-    Route::put('updateProfile', 'updateProfile');
+    Route::put('profile/edit', 'updateProfile');
 });
