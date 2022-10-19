@@ -174,5 +174,62 @@ class UserController extends Controller
             ], 500);
         }
     }
+    /**
+     * Edit Post
+     * @param Post $post
+     * @param Request $request
+     * @return Post
+     */
+    public function editPost(Post $post, Request $request)
+    {
+        try{
+            $validate = Validator::make($request->all(),[
+                'title' => 'required',
+                'price' => 'required|integer',
+                'is_ask_price' => 'required|boolean',
+                'maker' => 'required',
+                'model' => 'required',
+                'colour' => 'required',
+                'years' => 'required|integer',
+                'body_type_id' => 'required|integer',
+                'transmission_type' => 'required',
+                'kilometrage' => 'required|integer',
+                'gas_type' => 'required',
+                'doors' => 'required|integer',
+                'engine_cylinders' => 'required|integer',
+                'condition' => 'required',
+                'number_of_owners' => 'required|integer',
+                'number_of_accidents' => 'required|integer',
+            ]);
 
+            if($validate->fails())
+                return response()->json([
+                    'message' => 'Validation Error',
+                    'errors' => $validate->errors()
+                ], 400);
+
+            $post->title = $request->title;
+            $post->price = $request->price;
+            $post->is_ask_price = $request->is_ask_price;
+            $post->maker = $request->maker;
+            $post->model = $request->model;
+            $post->colour = $request->colour;
+            $post->years = $request->years;
+            $post->body_type_id = $request->body_type_id;
+            $post->transmission_type = $request->transmission_type;
+            $post->kilometrage = $request->kilometrage;
+            $post->gas_type = $request->gas_type;
+            $post->doors = $request->doors;
+            $post->engine_cylinders = $request->engine_cylinders;
+            $post->condition = $request->condition;
+            $post->number_of_owners = $request->number_of_owners;
+            $post->number_of_accidents = $request->number_of_accidents;
+            $post->save();
+
+        }catch(\Throwable $th){
+            return response()->json([
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }

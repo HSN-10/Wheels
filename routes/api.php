@@ -36,7 +36,7 @@ Route::controller(GuestController::class)->group(function(){
 
 Route::middleware('auth:sanctum')->controller(UserController::class)->group(function(){
     Route::post('post/create', 'createPost');
-    Route::put('post/{id}/edit', 'editPost');
+    Route::put('post/{post}/edit', 'editPost');
     Route::post('counterOffer/{id}', 'counterOffer');
     Route::get('counterOffers', 'counterOffers');
     Route::post('alert/create', 'createAlert');
