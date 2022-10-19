@@ -226,6 +226,7 @@ class UserController extends Controller
             $post->number_of_accidents = $request->number_of_accidents;
             $post->save();
 
+            return $post;
         }catch(\Throwable $th){
             return response()->json([
                 'message' => $th->getMessage()
