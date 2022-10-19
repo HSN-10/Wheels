@@ -165,7 +165,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
-
+            $user->save();
             return response()->json($user, 200);
 
         }catch(\Throwable $th){
