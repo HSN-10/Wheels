@@ -233,4 +233,29 @@ class UserController extends Controller
             ], 500);
         }
     }
+    /**
+     * Delete Post
+     * @param Post $post
+     * @return response
+     */
+    public function deletePost(Post $post)
+    {
+        try{
+            $user = Auth::user();
+            if($user->id != $post->user_id)
+                return response()->json([
+                    'message' => 'you don\'t have access to this post',
+                ], 401);
+
+            $post->delete();
+            $post->save();
+            return response()->json([
+                'message' => 'deleted successfully'
+            ],200);
+        }catch(\Throwable $th){
+            return response()->json([
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }
