@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
+class AlertController extends Controller
+{
+    /**
+     * Create Alert
+     *  @param Request $request
+     *  @return Alert
+     */
+    public function createAlert(Request $request)
+    {
+        try{
+            $validate = Validator::make($request->all(),[
+                'price_from' => 'required|integer',
+                'price_to' => 'required|integer',
+                'years' => 'integer',
+                'body_type_id' => 'integer',
+                'kilometrage' => 'integer',
+                'doors' => 'integer',
+                'engine_cylinders' => 'integer',
+                'number_of_owners' => 'integer',
+                'number_of_accidents' => 'integer',
+            ]);
+
+            if($validate->fails())
+                return response()->json([
+                    'message' => 'Validation Error',
+                    'errors' => $validate->errors()
+                ], 400);
+
+            $alert = Auth::user()->alerts()->create($request->all());
+
+            return response()->json($alert, 201);
+
+        }catch(\Throwable $th){
+            return response()->json([
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+    /**
+     * Show Alerts
+     * @return Alert
+     */
+    public function alerts()
+    {
+        return Auth::user()->alerts()->get();
+    }
+}

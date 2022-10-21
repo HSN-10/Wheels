@@ -9,7 +9,7 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class GuestController extends Controller
+class HomeController extends Controller
 {
     /**
      * Get All Body Type
@@ -20,31 +20,13 @@ class GuestController extends Controller
         $bodyType = BodyType::all();
         return response()->json($bodyType, 200);
     }
-
-    /**
-     * Last Posts
-     * @return Post
-     */
-    public function lastPosts()
-    {
-        $lastPosts =  Post::orderBy('created_at', 'desc')->limit(10)->get();
-        return response()->json($lastPosts, 200);
-    }
-    /**
-     * @param $id
-     * @return Post
-     */
-    public function post($id)
-    {
-        $post = Post::where('id', '=', $id)->first();
-        return response()->json($post, 200);
-    }
         /**
      * Report Post
-     * @param Request $request, $id
+     * @param Request $request
+     * @param Post $post
      * @return response
      */
-    public function report(Request $request, $id)
+    public function report(Request $request, Post $post)
     {
         try{
             $validate = Validator::make($request->all(),[
@@ -57,7 +39,7 @@ class GuestController extends Controller
                     'errors' => $validate->errors()
                 ], 400);
 
-            $report = Report::create($request->all());
+            $report = $post->report()->create($request->all());
             return response()->json($report, 201);
         }catch(\Throwable $th){
             return response()->json([
