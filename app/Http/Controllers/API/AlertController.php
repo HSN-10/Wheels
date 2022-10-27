@@ -31,8 +31,7 @@ class AlertController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'message' => 'Validation Error',
-                    'errors' => $validate->errors()
+                    'validate_errors' => $validate->errors()
                 ], 400);
 
             $alert = Auth::user()->alerts()->create($request->all());
@@ -41,7 +40,7 @@ class AlertController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'message' => $th->getMessage()
+                'error' => $th->getMessage()
             ], 500);
         }
     }

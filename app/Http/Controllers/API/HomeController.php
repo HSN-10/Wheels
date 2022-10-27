@@ -35,15 +35,14 @@ class HomeController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'message' => 'Validation Error',
-                    'errors' => $validate->errors()
+                    'validate_errors' => $validate->errors()
                 ], 400);
 
             $report = $post->report()->create($request->all());
             return response()->json($report, 201);
         }catch(\Throwable $th){
             return response()->json([
-                'message' => $th->getMessage()
+                'error' => $th->getMessage()
             ], 500);
         }
     }

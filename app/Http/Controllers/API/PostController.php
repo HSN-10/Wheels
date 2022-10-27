@@ -56,8 +56,7 @@ class PostController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'message' => 'Validation Error',
-                    'errors' => $validate->errors()
+                    'validate_errors' => $validate->errors()
                 ], 400);
 
             $post = Auth::user()->posts()->create($request->all());
@@ -66,7 +65,7 @@ class PostController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'message' => $th->getMessage()
+                'error' => $th->getMessage()
             ], 500);
         }
     }
@@ -101,8 +100,7 @@ class PostController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'message' => 'Validation Error',
-                    'errors' => $validate->errors()
+                    'validate_errors' => $validate->errors()
                 ], 400);
 
             $post->title = $request->title;
@@ -126,7 +124,7 @@ class PostController extends Controller
             return $post;
         }catch(\Throwable $th){
             return response()->json([
-                'message' => $th->getMessage()
+                'error' => $th->getMessage()
             ], 500);
         }
     }
@@ -151,7 +149,7 @@ class PostController extends Controller
             ],200);
         }catch(\Throwable $th){
             return response()->json([
-                'message' => $th->getMessage()
+                'error' => $th->getMessage()
             ], 500);
         }
     }
@@ -172,8 +170,7 @@ class PostController extends Controller
             ]);
             if($validate->fails())
                 return response()->json([
-                    'message' => 'Validation Error',
-                    'errors' => $validate->errors()
+                    'validate_errors' => $validate->errors()
                 ], 400);
 
             $counterOffer = $post->counter_offers()->create($request->all());
@@ -182,7 +179,7 @@ class PostController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'message' => $th->getMessage()
+                'error' => $th->getMessage()
             ], 500);
         }
     }

@@ -29,8 +29,7 @@ class AuthController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'message' => 'Validation Error',
-                    'errors' => $validate->errors()
+                    'validate_errors' => $validate->errors()
                 ], 400);
 
             $user = User::create([
@@ -47,7 +46,7 @@ class AuthController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'message' => $th->getMessage()
+                'error' => $th->getMessage()
             ], 500);
         }
     }
@@ -66,14 +65,13 @@ class AuthController extends Controller
                 'password' => 'required',
             ]);
             if($validate->fails())
-            return response()->json([
-                'message' => 'Validation Error',
-                'errors' => $validate->errors()
-            ], 400);
+                return response()->json([
+                    'validate_errors' => $validate->errors()
+                ], 400);
 
             if(!Auth::attempt($request->only(['email', 'password'])))
                 return response()->json([
-                    'message' => 'Email and Password not match with our system',
+                    'error' => 'Email and Password not match with our system',
                 ], 400);
 
             $user = User::where('email', $request->email)->first();
@@ -86,7 +84,7 @@ class AuthController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'message' => $th->getMessage()
+                'error' => $th->getMessage()
             ], 500);
         }
     }
