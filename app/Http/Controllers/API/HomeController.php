@@ -17,8 +17,16 @@ class HomeController extends Controller
      */
     public function getBodyType()
     {
-        $bodyType = BodyType::all();
-        return response()->json($bodyType, 200);
+        try{
+            $bodyType = BodyType::all();
+            return response()->json($bodyType, 200);
+        }catch(\Throwable $th){
+            return response()->json([
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
+            ], 500);
+        }
     }
         /**
      * Report Post
@@ -35,14 +43,18 @@ class HomeController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'validate_errors' => $validate->errors()
+                    'status' => 400,
+                    'title' => 'One or more validation errors occurred',
+                    'errors' => $validate->errors()
                 ], 400);
 
             $report = $post->report()->create($request->all());
             return response()->json($report, 201);
         }catch(\Throwable $th){
             return response()->json([
-                'error' => $th->getMessage()
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
             ], 500);
         }
     }

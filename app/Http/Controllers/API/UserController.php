@@ -27,7 +27,9 @@ class UserController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'validate_errors' => $validate->errors()
+                    'status' => 400,
+                    'title' => 'One or more validation errors occurred',
+                    'errors' => $validate->errors()
                 ], 400);
 
 
@@ -39,7 +41,9 @@ class UserController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'error' => $th->getMessage()
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
             ], 500);
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +17,16 @@ class PostController extends Controller
      */
     public function lastPosts()
     {
-        $lastPosts =  Post::orderBy('created_at', 'desc')->limit(10)->get();
-        return response()->json($lastPosts, 200);
+        try{
+            $lastPosts =  Post::orderBy('created_at', 'desc')->limit(10)->get();
+            return response()->json($lastPosts, 200);
+        }catch(\Throwable $th){
+            return response()->json([
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
+            ], 500);
+        }
     }
     /**
      * @param Post $post
@@ -25,7 +34,15 @@ class PostController extends Controller
      */
     public function post(Post $post)
     {
-        return response()->json($post, 200);
+        try{
+            return response()->json($post, 200);
+        }catch(\Throwable $th){
+            return response()->json([
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
+            ], 500);
+        }
     }
     /**
      * Create Post
@@ -56,7 +73,9 @@ class PostController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'validate_errors' => $validate->errors()
+                    'status' => 400,
+                    'title' => 'One or more validation errors occurred',
+                    'errors' => $validate->errors()
                 ], 400);
 
             $post = Auth::user()->posts()->create($request->all());
@@ -65,7 +84,9 @@ class PostController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'error' => $th->getMessage()
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
             ], 500);
         }
     }
@@ -100,7 +121,9 @@ class PostController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'validate_errors' => $validate->errors()
+                    'status' => 400,
+                    'title' => 'One or more validation errors occurred',
+                    'errors' => $validate->errors()
                 ], 400);
 
             $post->title = $request->title;
@@ -124,7 +147,9 @@ class PostController extends Controller
             return $post;
         }catch(\Throwable $th){
             return response()->json([
-                'error' => $th->getMessage()
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
             ], 500);
         }
     }
@@ -139,17 +164,18 @@ class PostController extends Controller
             $user = Auth::user();
             if($user->id != $post->user_id)
                 return response()->json([
-                    'message' => 'you don\'t have access to this post',
+                    'status' => 401,
+                    'title' => 'Unauthorized',
+                    'errors' => 'You don\'t have access to delete this post'
                 ], 401);
-
             $post->delete();
             $post->save();
-            return response()->json([
-                'message' => 'deleted successfully'
-            ],200);
+            return response()->json($post,200);
         }catch(\Throwable $th){
             return response()->json([
-                'error' => $th->getMessage()
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
             ], 500);
         }
     }
@@ -170,7 +196,9 @@ class PostController extends Controller
             ]);
             if($validate->fails())
                 return response()->json([
-                    'validate_errors' => $validate->errors()
+                    'status' => 400,
+                    'title' => 'One or more validation errors occurred',
+                    'errors' => $validate->errors()
                 ], 400);
 
             $counterOffer = $post->counter_offers()->create($request->all());
@@ -179,7 +207,9 @@ class PostController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'error' => $th->getMessage()
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
             ], 500);
         }
     }
@@ -190,6 +220,14 @@ class PostController extends Controller
      */
     public function counterOffers()
     {
-        return Auth::user()->counter_offers()->get();
+        try{
+            return Auth::user()->counter_offers()->get();
+        }catch(\Throwable $th){
+            return response()->json([
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
+            ], 500);
+        }
     }
 }

@@ -29,8 +29,11 @@ class AuthController extends Controller
 
             if($validate->fails())
                 return response()->json([
-                    'validate_errors' => $validate->errors()
+                    'status' => 400,
+                    'title' => 'One or more validation errors occurred',
+                    'errors' => $validate->errors()
                 ], 400);
+
 
             $user = User::create([
                 'name' => $request->name,
@@ -46,7 +49,9 @@ class AuthController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'error' => $th->getMessage()
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
             ], 500);
         }
     }
@@ -66,12 +71,16 @@ class AuthController extends Controller
             ]);
             if($validate->fails())
                 return response()->json([
-                    'validate_errors' => $validate->errors()
+                    'status' => 400,
+                    'title' => 'One or more validation errors occurred',
+                    'errors' => $validate->errors()
                 ], 400);
 
             if(!Auth::attempt($request->only(['email', 'password'])))
                 return response()->json([
-                    'error' => 'Email and Password not match with our system',
+                    'status' => 400,
+                    'title' => 'Authentication error',
+                    'errors' => 'Invalid username or password',
                 ], 400);
 
             $user = User::where('email', $request->email)->first();
@@ -84,7 +93,9 @@ class AuthController extends Controller
 
         }catch(\Throwable $th){
             return response()->json([
-                'error' => $th->getMessage()
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
             ], 500);
         }
     }
