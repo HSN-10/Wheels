@@ -23,6 +23,8 @@ return new class extends Migration
             $table->boolean('is_ask_price');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('type_post_id');
+            $table->foreign('type_post_id')->references('id')->on('posts');
 
             // car details
             $table->string('maker');
