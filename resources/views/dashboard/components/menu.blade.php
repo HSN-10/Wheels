@@ -13,7 +13,7 @@
             </li>
             <li class="nav-item">
                 <a href="#">
-                    <i class="fa fa-list"></i>
+                    <i class="fa fa-car"></i>
                     <span class="menu-title" data-i18n="@lang('global.BodyTypes')">@lang('global.BodyTypes')</span>
                 </a>
                 <ul class="menu-content">

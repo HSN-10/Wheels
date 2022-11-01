@@ -38,7 +38,7 @@
                             <div class="stats-amount mr-3">
                                 <h3 class="heading-text text-bold-600" id="usersCount"
                                     data-toggle="tooltip" data-placement="top" data-original-title=""></h3>
-                                <p class="sub-heading">@lang('global.user')</p>
+                                <p class="sub-heading">@lang('global.users')</p>
                             </div>
                         </div>
                     </div>
