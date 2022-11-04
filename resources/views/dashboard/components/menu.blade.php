@@ -13,8 +13,8 @@
             </li>
             <li class="nav-item">
                 <a href="#">
-                    <i class="fa fa-list"></i>
-                    <span class="menu-title" data-i18n="@lang('global.BodyTypes')">@lang('global.BodyTypes')</span>
+                    <i class="fa fa-car"></i>
+                    <span class="menu-title" data-i18n="@lang('global.bodyTypes')">@lang('global.bodyTypes')</span>
                 </a>
                 <ul class="menu-content">
                     <li @if(Request::route()->getName()=='BodyType.create') class="active" @endif>
@@ -27,8 +27,8 @@
                             Request::route()->getName()=='score.trash' )
                         class="active"
                         @endif>
-                        <a class="menu-item" href="" data-i18n="@lang('global.BodyTypes')">
-                            <i class="fa fa-table icon-menu" style="margin-top: 3.5px;"></i> @lang('global.BodyTypes')
+                        <a class="menu-item" href="" data-i18n="@lang('global.bodyTypes')">
+                            <i class="fa fa-table icon-menu" style="margin-top: 3.5px;"></i> @lang('global.bodyTypes')
                         </a>
                     </li>
                     <li @if(Request::route()->getName()=='category.trash') class="active" @endif>
