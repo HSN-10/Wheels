@@ -32,9 +32,9 @@ return new class extends Migration
             $table->integer('years');
             $table->unsignedBigInteger('body_type_id');
             $table->foreign('body_type_id')->references('id')->on('body_types')->onDelete('CASCADE');
-            $table->string('transmission_type');
+            $table->integer('transmission_type');
             $table->integer('kilometrage');
-            $table->string('gas_type');
+            $table->integer('gas_type');
             $table->integer('doors');
             $table->integer('engine_cylinders');
             $table->integer('condition');
