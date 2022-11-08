@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\BodyTypeController;
+use App\Http\Controllers\Dashboard\BodyTypeController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,18 @@ Route::prefix('dashboard')->group(function(){
         Route::get('/trash', 'trash')->name('bodytype.trash');
         Route::get('/{id}/undo', 'undo')->name('bodytype.undo');
         Route::delete('/{id}/forceDelete', 'forceDelete')->name('bodytype.forceDelete');
+    });
+
+    Route::controller(UserController::class)->prefix('User')->group(function(){
+        Route::get('/', 'index')->name('user.index');
+        Route::get('/create', 'create')->name('user.create');
+        Route::post('/create', 'store')->name('user.store');
+        Route::get('/{user}/edit', 'edit')->name('user.edit');
+        Route::put('/{user}/edit', 'update')->name('user.update');
+        Route::delete('/{user}', 'destroy')->name('user.destroy');
+        Route::get('/trash', 'trash')->name('user.trash');
+        Route::get('/{id}/undo', 'undo')->name('user.undo');
+        Route::delete('/{id}/forceDelete', 'forceDelete')->name('user.forceDelete');
     });
 
 });

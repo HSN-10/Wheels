@@ -36,6 +36,26 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <span class="menu-title" data-i18n="@lang('global.users')">@lang('global.users')</span>
+                </a>
+                <ul class="menu-content">
+                    <li @if(Request::route()->getName()=='user.index' || Request::route()->getName()=='user.edit')
+                        class="active"
+                        @endif>
+                        <a class="menu-item" href="{{route('user.index')}}" data-i18n="@lang('global.users')">
+                            <i class="fa fa-table icon-menu" style="margin-top: 3.5px;"></i> @lang('global.users')
+                        </a>
+                    </li>
+                    <li @if(Request::route()->getName()=='user.trash') class="active" @endif>
+                        <a class="menu-item" href="{{route('user.trash')}}" data-i18n="@lang('global.trash')">
+                            <i class="fa fa-trash icon-menu" style="margin-top: 2px;"></i> @lang('global.trash')
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

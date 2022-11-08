@@ -6,6 +6,7 @@ return [
     "posts" => "Posts",
     "alerts" => "Alerts",
     "users" => "Users",
+    "user" => "User",
     "reports" => "Reports",
     "bodyTypes" => "Body Types",
     "bodyType" => "Body Type",
@@ -37,4 +38,8 @@ return [
     "undo" => "Undo",
     "undoSuccess" => "Undo Successfully",
     "undoError" => "Can't Undo This Record",
+    "email" => "E-mail",
+    "phone" => "Phone",
+    "role" => "Role",
+    "admin" => "Admin"
 ];
