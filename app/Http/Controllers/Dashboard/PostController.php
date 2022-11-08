@@ -53,9 +53,9 @@ class PostController extends Controller
         else
             return redirect()->route('post.index')->with(['error' => Lang::get('global.updateError')]);
     }
-    public function destroy(Post $user)
+    public function destroy(Post $post)
     {
-        if ($user->delete())
+        if ($post->delete())
             return redirect()->back()->with(['success' => Lang::get('global.deleteSuccess')]);
         else
             return redirect()->back()->with(['error' => Lang::get('global.deleteError')]);
@@ -63,23 +63,23 @@ class PostController extends Controller
 
     public function trash()
     {
-        $users = Post::onlyTrashed()->get();
-        return view('dashboard.user.trash', compact(['users']));
+        $posts = Post::onlyTrashed()->get();
+        return view('dashboard.post.trash', compact(['posts']));
     }
     public function undo($id)
     {
-        $user = Post::onlyTrashed()->where('id', $id)->first();
-        $user->deleted_at = null;
-        if ($user->save())
+        $post = Post::onlyTrashed()->where('id', $id)->first();
+        $post->deleted_at = null;
+        if ($post->save())
             return redirect()->back()->with(['success' => Lang::get('global.undoSuccess')]);
         else
             return redirect()->back()->with(['error' => Lang::get('global.undoError')]);
     }
     public function forceDelete($id)
     {
-        $user = Post::onlyTrashed()->where('id', $id)->first();
+        $post = Post::onlyTrashed()->where('id', $id)->first();
 
-        if ($user->forceDelete())
+        if ($post->forceDelete())
             return redirect()->back()->with(['success' => Lang::get('lang.deleteSuccess')]);
         else
             return redirect()->back()->with(['error' => Lang::get('lang.deleteError')]);
