@@ -144,7 +144,7 @@
                                         <label for="body_type_id">@lang('global.bodyType')</label>
                                         <select name="body_type_id" class="select2 form-control withoutSearch @error('body_type_id') is-invalid text-danger @enderror" id="body_type_id">
                                             @foreach ($bodyTypes as $bodyType)
-                                                <option value="{{$bodyType->id}}}" @if($post->body_type_id==$bodyType->id) selected @endif>{{$bodyType->name}}</option>
+                                                <option value="{{$bodyType->id}}" @if($post->body_type_id==$bodyType->id) selected @endif>{{$bodyType->name}}</option>
                                             @endforeach
                                         </select>
                                         @error('body_type_id')
