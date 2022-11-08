@@ -30,29 +30,27 @@
                                 <thead>
                                     <tr>
                                         <th>@lang('global.id')</th>
-                                        <th>@lang('global.name')</th>
-                                        <th>@lang('global.email')</th>
-                                        <th>@lang('global.phone')</th>
-                                        <th>@lang('global.role')</th>
+                                        <th>@lang('global.title')</th>
+                                        <th>@lang('global.typePost')</th>
+                                        <th>@lang('global.user')</th>
                                         <th>@lang('global.options')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($users as $user)
+                                    @foreach($posts as $post)
                                         <tr>
-                                            <td>{{$user->id}}</td>
-                                            <td>{{$user->name}}</td>
-                                            <td>{{$user->email}}</td>
-                                            <td>{{$user->phone}}</td>
-                                            <td><h1 class="badge badge-pill badge-glow {{$user->is_admin==1?'badge-primary':'badge-secondary'}}">{{$user->is_admin==1?Lang::get('global.admin'):Lang::get('global.user')}}</div></td>
+                                            <td>{{$post->id}}</td>
+                                            <td>{{$post->title}}</td>
+                                            <td>{{$post->type_post==1?Lang::get('global.sale'):Lang::get('global.request')}}</td>
+                                            <td>{{$post->user->name}}</td>
                                             <td>
                                                 <div class="d-none d-md-block">
                                                     <div class="btn-group">
-                                                        <a href="{{route('user.edit', $user)}}" class="btn btn-group btn-info square">
+                                                        <a href="{{route('user.edit', $post)}}" class="btn btn-group btn-info square">
                                                             <i class="fas fa-edit mr-1"></i> @lang('global.edit')
                                                         </a>
                                                         <a href="" class="btn btn-group btn-danger square confirm-text"
-                                                            onclick="event.preventDefault();" data-user="{{$user->id}}">
+                                                            onclick="event.preventDefault();" data-post="{{$post->id}}">
                                                             <i class="fas fa-trash mr-1"></i> @lang('global.delete')
                                                         </a>
                                                     </div>
@@ -63,14 +61,14 @@
                                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                                                         <div class="dropdown-menu" style="right: -150% !important;">
                                                             <a class="dropdown-item"
-                                                                href="{{route('user.edit', $user)}}"><i class="fas fa-edit mr-1"></i> @lang('global.edit')</a>
-                                                            <a class="dropdown-item confirm-text text-danger" data-user="{{$user->id}}"
+                                                                href="{{route('post.edit', $post)}}"><i class="fas fa-edit mr-1"></i> @lang('global.edit')</a>
+                                                            <a class="dropdown-item confirm-text text-danger" data-post="{{$post->id}}"
                                                                 href="" onclick="event.preventDefault();"
                                                             ><i class="fas fa-trash mr-1"></i> @lang('global.delete')</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <form id="delete-form-{{$user->id}}" action="{{route("user.destroy", $user)}}" method="POST" style="display: none;">
+                                                <form id="delete-form-{{$post->id}}" action="{{route("post.destroy", $post)}}" method="POST" style="display: none;">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                 </form>
@@ -81,10 +79,9 @@
                                 <tfoot>
                                     <tr>
                                         <th>@lang('global.id')</th>
-                                        <th>@lang('global.name')</th>
-                                        <th>@lang('global.email')</th>
-                                        <th>@lang('global.phone')</th>
-                                        <th>@lang('global.role')</th>
+                                        <th>@lang('global.title')</th>
+                                        <th>@lang('global.typePost')</th>
+                                        <th>@lang('global.user')</th>
                                         <th>@lang('global.options')</th>
                                     </tr>
                                 </tfoot>
@@ -132,7 +129,7 @@
             ]
         });
         $(".confirm-text").on("click", function() {
-            let bodytype = this.dataset.bodytype;
+            let post = this.dataset.post;
             Swal.fire({
                 title: "@lang('global.areYouSure')",
                 text: "@lang('global.forceDeleteForEver')",
@@ -154,7 +151,7 @@
                         confirmButtonClass: "btn btn-success"
                     });
                     setTimeout(()=>{
-                        document.getElementById('forceDelete-form-' + bodytype).submit();
+                        document.getElementById('forceDelete-form-' + post).submit();
                     },1500)
                 }
             });
