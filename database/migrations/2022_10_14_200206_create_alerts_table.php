@@ -18,7 +18,7 @@ return new class extends Migration
 
             // alert details
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->integer('price_from');
             $table->integer('price_to');
 
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('colour')->nullable();
             $table->integer('years')->nullable();
             $table->unsignedBigInteger('body_type_id')->nullable();
-            $table->foreign('body_type_id')->references('id')->on('body_types');
+            $table->foreign('body_type_id')->references('id')->on('body_types')->onDelete('CASCADE');
             $table->string('transmission_type')->nullable();
             $table->integer('kilometrage')->nullable();
             $table->string('gas_type')->nullable();

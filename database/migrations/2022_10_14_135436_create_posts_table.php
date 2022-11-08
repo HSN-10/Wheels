@@ -22,9 +22,9 @@ return new class extends Migration
             $table->integer('price');
             $table->boolean('is_ask_price');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');;
             $table->unsignedBigInteger('type_post_id');
-            $table->foreign('type_post_id')->references('id')->on('posts');
+            $table->foreign('type_post_id')->references('id')->on('posts')->onDelete('CASCADE');
 
             // car details
             $table->string('maker');
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('colour');
             $table->integer('years');
             $table->unsignedBigInteger('body_type_id');
-            $table->foreign('body_type_id')->references('id')->on('body_types');
+            $table->foreign('body_type_id')->references('id')->on('body_types')->onDelete('CASCADE');
             $table->string('transmission_type');
             $table->integer('kilometrage');
             $table->string('gas_type');
