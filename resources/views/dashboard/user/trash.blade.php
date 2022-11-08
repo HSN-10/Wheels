@@ -45,36 +45,38 @@
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->phone}}</td>
                                             <td><h1 class="badge badge-pill badge-glow {{$user->is_admin==1?'badge-primary':'badge-secondary'}}">{{$user->is_admin==1?Lang::get('global.admin'):Lang::get('global.user')}}</div></td>
-                                            <td>
-                                                <div class="d-none d-md-block">
-                                                    <div class="btn-group">
-                                                        <a href="{{route('user.edit', $user)}}" class="btn btn-group btn-info square">
-                                                            <i class="fas fa-edit mr-1"></i> @lang('global.edit')
-                                                        </a>
-                                                        <a href="" class="btn btn-group btn-danger square confirm-text"
-                                                            onclick="event.preventDefault();" data-user="{{$user->id}}">
-                                                            <i class="fas fa-trash mr-1"></i> @lang('global.delete')
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="d-sm-block d-xs-block d-lg-none d-md-none">
-                                                    <div class="btn-group mr-1 mb-1">
-                                                        <button type="button" class="btn btn-secondary dropdown-toggle"
-                                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                                                        <div class="dropdown-menu" style="right: -150% !important;">
-                                                            <a class="dropdown-item"
-                                                                href="{{route('user.edit', $user)}}"><i class="fas fa-edit mr-1"></i> @lang('global.edit')</a>
-                                                            <a class="dropdown-item confirm-text text-danger" data-user="{{$user->id}}"
-                                                                href="" onclick="event.preventDefault();"
-                                                            ><i class="fas fa-trash mr-1"></i> @lang('global.delete')</a>
+                                                <td>
+                                                    <div class="d-none d-md-block">
+                                                        <div class="btn-group">
+                                                            <a href="{{route('user.undo', $user->id)}}" class="btn btn-group btn-info square">
+                                                                <i class="fas fa-undo mr-1"></i> @lang('global.undo')
+                                                            </a>
+                                                            <a href="{{route('user.destroy', $user->id)}}" class="btn btn-group btn-danger square confirm-text"
+                                                                onclick="event.preventDefault();" data-user="{{$user->id}}">
+                                                                <i class="fas fa-trash mr-1"></i> @lang('global.delete')
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <form id="delete-form-{{$user->id}}" action="{{route("user.destroy", $user)}}" method="POST" style="display: none;">
-                                                    @csrf
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                </form>
-                                            </td>
+                                                    <div class="d-sm-block d-xs-block d-lg-none d-md-none">
+                                                        <div class="btn-group mr-1 mb-1">
+                                                            <button type="button" class="btn btn-secondary dropdown-toggle"
+                                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                                                            <div class="dropdown-menu" style="right: -150% !important;">
+                                                                <a class="dropdown-item"
+                                                                    href="{{route('user.undo', $user->id)}}">
+                                                                    <i class="fas fa-undo mr-1"></i> @lang('global.undo')
+                                                                </a>
+                                                                <a class="dropdown-item" data-user="{{$user->id}}"
+                                                                    href="{{route('user.forceDelete', $user->id)}}" id="confirm-text" onclick="event.preventDefault();"
+                                                                ><i class="fas fa-trash mr-1"></i> @lang('global.delete')</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <form id="forceDelete-form-{{$user->id}}" action="{{ route('user.forceDelete', $user->id) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                    </form>
+                                                </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
