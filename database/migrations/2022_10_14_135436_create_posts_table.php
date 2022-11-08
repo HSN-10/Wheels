@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('gas_type');
             $table->integer('doors');
             $table->integer('engine_cylinders');
-            $table->string('condition');
+            $table->integer('condition');
             $table->integer('number_of_owners');
             $table->integer('number_of_accidents');
 

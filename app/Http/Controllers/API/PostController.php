@@ -66,7 +66,7 @@ class PostController extends Controller
                 'gas_type' => 'required',
                 'doors' => 'required|integer',
                 'engine_cylinders' => 'required|integer',
-                'condition' => 'required',
+                'condition' => 'required|integer',
                 'number_of_owners' => 'required|integer',
                 'number_of_accidents' => 'required|integer',
             ]);
@@ -114,7 +114,7 @@ class PostController extends Controller
                 'gas_type' => 'required',
                 'doors' => 'required|integer',
                 'engine_cylinders' => 'required|integer',
-                'condition' => 'required',
+                'condition' => 'required|integer',
                 'number_of_owners' => 'required|integer',
                 'number_of_accidents' => 'required|integer',
             ]);
