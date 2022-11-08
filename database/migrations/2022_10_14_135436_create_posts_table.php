@@ -23,8 +23,7 @@ return new class extends Migration
             $table->boolean('is_ask_price');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');;
-            $table->unsignedBigInteger('type_post_id');
-            $table->foreign('type_post_id')->references('id')->on('posts')->onDelete('CASCADE');
+            $table->integer('type_post')->default(1);
 
             // car details
             $table->string('maker');

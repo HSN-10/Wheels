@@ -42,10 +42,6 @@ class Post extends Model
     {
         return $this->belongsTo(BodyType::class);
     }
-    public function post_type()
-    {
-        return $this->belongsTo(PostType::class);
-    }
     public function images()
     {
         return $this->hasMany(ImageOfPost::class);
