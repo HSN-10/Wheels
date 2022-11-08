@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title' ,  Lang::get('global.dashboard') . ' | '. Lang::get('global.home'))
+@section('title' ,  Lang::get('global.dashboard') . ' | '. Lang::get('global.bodyTypes'))
 @section('content')
 <div class="content-header row">
     <div class="content-header-left col-md-6 col-12 mb-2">
