@@ -51,10 +51,6 @@
                                                             <a href="{{route('user.undo', $user->id)}}" class="btn btn-group btn-info square">
                                                                 <i class="fas fa-undo mr-1"></i> @lang('global.undo')
                                                             </a>
-                                                            <a href="{{route('user.destroy', $user->id)}}" class="btn btn-group btn-danger square confirm-text"
-                                                                onclick="event.preventDefault();" data-user="{{$user->id}}">
-                                                                <i class="fas fa-trash mr-1"></i> @lang('global.delete')
-                                                            </a>
                                                         </div>
                                                     </div>
                                                     <div class="d-sm-block d-xs-block d-lg-none d-md-none">
@@ -66,16 +62,9 @@
                                                                     href="{{route('user.undo', $user->id)}}">
                                                                     <i class="fas fa-undo mr-1"></i> @lang('global.undo')
                                                                 </a>
-                                                                <a class="dropdown-item" data-user="{{$user->id}}"
-                                                                    href="{{route('user.forceDelete', $user->id)}}" id="confirm-text" onclick="event.preventDefault();"
-                                                                ><i class="fas fa-trash mr-1"></i> @lang('global.delete')</a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <form id="forceDelete-form-{{$user->id}}" action="{{ route('user.forceDelete', $user->id) }}" method="POST" style="display: none;">
-                                                        @csrf
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                    </form>
                                                 </td>
                                         </tr>
                                     @endforeach
@@ -132,34 +121,6 @@
                 { "width": "10%" },
                 { "width": "5%" }
             ]
-        });
-        $(".confirm-text").on("click", function() {
-            let bodytype = this.dataset.bodytype;
-            Swal.fire({
-                title: "@lang('global.areYouSure')",
-                text: "@lang('global.forceDeleteForEver')",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "@lang('global.yesDelete')",
-                cancelButtonText: "@lang('global.close')",
-                confirmButtonClass: "btn btn-primary",
-                cancelButtonClass: "btn btn-danger ml-1",
-                buttonsStyling: false
-            }).then(function(result) {
-                if (result.value) {
-                    Swal.fire({
-                        type: "success",
-                        title: "@lang('global.success')",
-                        text: "@lang('global.deleteSuccess')",
-                        confirmButtonClass: "btn btn-success"
-                    });
-                    setTimeout(()=>{
-                        document.getElementById('forceDelete-form-' + bodytype).submit();
-                    },1500)
-                }
-            });
         });
     </script>
 @endpush

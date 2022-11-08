@@ -44,35 +44,26 @@
                                             <td>{{$post->type_post==1?Lang::get('global.sale'):Lang::get('global.request')}}</td>
                                             <td>{{$post->user->name}}</td>
                                             <td>
-                                                <div class="d-none d-md-block">
-                                                    <div class="btn-group">
-                                                        <a href="{{route('user.edit', $post)}}" class="btn btn-group btn-info square">
-                                                            <i class="fas fa-edit mr-1"></i> @lang('global.edit')
-                                                        </a>
-                                                        <a href="" class="btn btn-group btn-danger square confirm-text"
-                                                            onclick="event.preventDefault();" data-post="{{$post->id}}">
-                                                            <i class="fas fa-trash mr-1"></i> @lang('global.delete')
+                                            <div class="d-none d-md-block">
+                                                <div class="btn-group">
+                                                    <a href="{{route('post.undo', $post->id)}}" class="btn btn-group btn-info square">
+                                                        <i class="fas fa-undo mr-1"></i> @lang('global.undo')
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="d-sm-block d-xs-block d-lg-none d-md-none">
+                                                <div class="btn-group mr-1 mb-1">
+                                                    <button type="button" class="btn btn-secondary dropdown-toggle"
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                                                    <div class="dropdown-menu" style="right: -150% !important;">
+                                                        <a class="dropdown-item"
+                                                            href="{{route('post.undo', $post->id)}}">
+                                                            <i class="fas fa-undo mr-1"></i> @lang('global.undo')
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <div class="d-sm-block d-xs-block d-lg-none d-md-none">
-                                                    <div class="btn-group mr-1 mb-1">
-                                                        <button type="button" class="btn btn-secondary dropdown-toggle"
-                                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                                                        <div class="dropdown-menu" style="right: -150% !important;">
-                                                            <a class="dropdown-item"
-                                                                href="{{route('post.edit', $post)}}"><i class="fas fa-edit mr-1"></i> @lang('global.edit')</a>
-                                                            <a class="dropdown-item confirm-text text-danger" data-post="{{$post->id}}"
-                                                                href="" onclick="event.preventDefault();"
-                                                            ><i class="fas fa-trash mr-1"></i> @lang('global.delete')</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <form id="delete-form-{{$post->id}}" action="{{route("post.destroy", $post)}}" method="POST" style="display: none;">
-                                                    @csrf
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                </form>
-                                            </td>
+                                            </div>
+                                        </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -127,34 +118,6 @@
                 { "width": "10%" },
                 { "width": "5%" }
             ]
-        });
-        $(".confirm-text").on("click", function() {
-            let post = this.dataset.post;
-            Swal.fire({
-                title: "@lang('global.areYouSure')",
-                text: "@lang('global.forceDeleteForEver')",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "@lang('global.yesDelete')",
-                cancelButtonText: "@lang('global.close')",
-                confirmButtonClass: "btn btn-primary",
-                cancelButtonClass: "btn btn-danger ml-1",
-                buttonsStyling: false
-            }).then(function(result) {
-                if (result.value) {
-                    Swal.fire({
-                        type: "success",
-                        title: "@lang('global.success')",
-                        text: "@lang('global.deleteSuccess')",
-                        confirmButtonClass: "btn btn-success"
-                    });
-                    setTimeout(()=>{
-                        document.getElementById('forceDelete-form-' + post).submit();
-                    },1500)
-                }
-            });
         });
     </script>
 @endpush

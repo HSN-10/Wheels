@@ -75,13 +75,4 @@ class PostController extends Controller
         else
             return redirect()->back()->with(['error' => Lang::get('global.undoError')]);
     }
-    public function forceDelete($id)
-    {
-        $post = Post::onlyTrashed()->where('id', $id)->first();
-
-        if ($post->forceDelete())
-            return redirect()->back()->with(['success' => Lang::get('lang.deleteSuccess')]);
-        else
-            return redirect()->back()->with(['error' => Lang::get('lang.deleteError')]);
-    }
 }

@@ -91,16 +91,4 @@ class BodyTypeController extends Controller
         else
             return redirect()->back()->with(['error' => Lang::get('global.undoError')]);
     }
-    public function forceDelete($id)
-    {
-        $bodyType = BodyType::onlyTrashed()->where('id', $id)->first();
-
-        if (!File::exists('public/' . $bodyType->icon))
-            Storage::delete('public/' . $bodyType->icon);
-
-        if ($bodyType->forceDelete())
-            return redirect()->back()->with(['success' => Lang::get('lang.deleteSuccess')]);
-        else
-            return redirect()->back()->with(['error' => Lang::get('lang.deleteError')]);
-    }
 }
