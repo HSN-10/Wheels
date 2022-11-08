@@ -33,7 +33,7 @@
                                        onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();"
                                         ><i class="feather icon-power"></i> @lang('global.logout')</a>
-                            <form id="logout-form" action="" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </div>
