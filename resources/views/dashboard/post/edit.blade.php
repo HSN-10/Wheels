@@ -87,7 +87,7 @@
                                         <label for="user_id">@lang('global.user')</label>
                                         <select name="user_id" class="select2 form-control withoutSearch @error('user_id') is-invalid text-danger @enderror" id="user_id">
                                             @foreach ($users as $user)
-                                                <option value="{{$user->id}}}" @if($post->user_id==$user->id) selected @endif>{{$user->name}}</option>
+                                                <option value="{{$user->id}}" @if($post->user_id==$user->id) selected @endif>{{$user->name}}</option>
                                             @endforeach
                                         </select>
                                         @error('user_id')
