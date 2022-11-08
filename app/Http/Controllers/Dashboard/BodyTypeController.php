@@ -28,7 +28,7 @@ class BodyTypeController extends Controller
         $path = 'images/BodyTpye';
         $validate = Validator::make($request->all(),[
             'name' => 'required|string',
-            'image' => 'required|mimes:jpeg,jpg,png,gif|max:10000',
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:10000',
         ]);
 
         $saveImage = $request->file('image')->store('public/' . $path);
@@ -46,6 +46,27 @@ class BodyTypeController extends Controller
     public function edit(BodyType $bodyType)
     {
         return view('dashboard.bodytype.edit', compact(['bodyType']));
+    }
+
+    public function update(Request $request, BodyType $bodyType)
+    {
+        $path = 'images/BodyType';
+        $validate = $request->validate([
+            'name' => 'required',
+            'image' => 'image|mimes:jpeg,jpg,png,gif|max:10000',
+        ]);
+
+        if ($request->file('image')) {
+            if (!File::exists('public/' . $bodyType->icon))
+                Storage::delete('public/' . $bodyType->icon);
+            $saveImage = $request->file('image')->store('public/' . $path);
+            $bodyType->icon = $path . '/' . basename($saveImage);
+        }
+        $bodyType->name = $request->name;
+        if ($bodyType->save())
+            return redirect()->route('bodytype.index')->with(['success' => Lang::get('global.updateSuccess')]);
+        else
+            return redirect()->route('bodytype.index')->with(['error' => Lang::get('global.updateError')]);
     }
 
     public function destroy(BodyType $bodyType)
