@@ -8,7 +8,7 @@
             <div class="breadcrumb-wrapper col-12">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">@lang('global.home')</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('bodytype.index')}}">@lang('global.categories')</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('bodytype.index')}}">@lang('global.bodyTypes')</a></li>
                     <li class="breadcrumb-item active"><span>@lang('global.trash')</span></li>
                 </ol>
             </div>
