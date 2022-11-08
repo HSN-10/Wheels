@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\BodyTypeController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\HomeController;
@@ -42,14 +43,22 @@ Route::prefix('dashboard')->group(function(){
 
     Route::controller(UserController::class)->prefix('User')->group(function(){
         Route::get('/', 'index')->name('user.index');
-        Route::get('/create', 'create')->name('user.create');
-        Route::post('/create', 'store')->name('user.store');
         Route::get('/{user}/edit', 'edit')->name('user.edit');
         Route::put('/{user}/edit', 'update')->name('user.update');
         Route::delete('/{user}', 'destroy')->name('user.destroy');
         Route::get('/trash', 'trash')->name('user.trash');
         Route::get('/{id}/undo', 'undo')->name('user.undo');
         Route::delete('/{id}/forceDelete', 'forceDelete')->name('user.forceDelete');
+    });
+
+    Route::controller(PostController::class)->prefix('Post')->group(function(){
+        Route::get('/', 'index')->name('post.index');
+        Route::get('/{post}/edit', 'edit')->name('post.edit');
+        Route::put('/{post}/edit', 'update')->name('post.update');
+        Route::delete('/{post}', 'destroy')->name('post.destroy');
+        Route::get('/trash', 'trash')->name('post.trash');
+        Route::get('/{id}/undo', 'undo')->name('post.undo');
+        Route::delete('/{id}/forceDelete', 'forceDelete')->name('post.forceDelete');
     });
 
 });
