@@ -18,21 +18,19 @@
                 </a>
                 <ul class="menu-content">
                     <li @if(Request::route()->getName()=='BodyType.create') class="active" @endif>
-                        <a class="menu-item" href="" data-i18n="@lang('global.createBodyType')">
-                            <i class="fa fa-plus icon-menu"></i> @lang('global.createBodyType')
+                        <a class="menu-item" href="{{route('bodytype.create')}}" data-i18n="@lang('global.create') @lang('global.bodyType')">
+                            <i class="fa fa-plus icon-menu"></i> @lang('global.create') @lang('global.bodyType')
                         </a>
                     </li>
-                    <li @if(Request::route()->getName()=='category.index' || Request::route()->getName()=='category.edit' || Request::route()->getName()=='category.show' ||
-                            Request::route()->getName()=='score.index' || Request::route()->getName()=='score.edit' || Request::route()->getName()=='score.show' ||
-                            Request::route()->getName()=='score.trash' )
+                    <li @if(Request::route()->getName()=='bodytype.index' || Request::route()->getName()=='bodytype.edit')
                         class="active"
                         @endif>
-                        <a class="menu-item" href="" data-i18n="@lang('global.bodyTypes')">
+                        <a class="menu-item" href="{{route('bodytype.index')}}" data-i18n="@lang('global.bodyTypes')">
                             <i class="fa fa-table icon-menu" style="margin-top: 3.5px;"></i> @lang('global.bodyTypes')
                         </a>
                     </li>
-                    <li @if(Request::route()->getName()=='category.trash') class="active" @endif>
-                        <a class="menu-item" href="" data-i18n="@lang('global.trash')">
+                    <li @if(Request::route()->getName()=='bodytype.trash') class="active" @endif>
+                        <a class="menu-item" href="{{route('bodytype.trash')}}" data-i18n="@lang('global.trash')">
                             <i class="fa fa-trash icon-menu" style="margin-top: 2px;"></i> @lang('global.trash')
                         </a>
                     </li>

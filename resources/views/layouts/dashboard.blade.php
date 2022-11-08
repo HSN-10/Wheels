@@ -80,10 +80,10 @@ instagram: @7assanDev
 
     <script>
         @if(session()->has('success'))
-            toastr.success("{{ session()->get('success') }}", '@lang('lang.success')', {positionClass: 'toast-top-left', containerId: 'toast-top-left' });
+            toastr.success("{{ session()->get('success') }}", '@lang('global.success')', {positionClass: 'toast-top-right', containerId: 'toast-top-right' });
         @endif
         @if(session()->has('error'))
-            toastr.error("{{ session()->get('error') }}", '@lang('lang.error')', {positionClass: 'toast-top-left', containerId: 'toast-top-left' });
+            toastr.error("{{ session()->get('error') }}", '@lang('global.error')', {positionClass: 'toast-top-right', containerId: 'toast-top-right' });
         @endif
     </script>
     @stack('PageJS')
