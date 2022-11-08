@@ -3,11 +3,14 @@
 return [
     "home" => "Home",
     "dashboard" => "Dashboard",
-    "BodyTypes" => "Body Types",
     "posts" => "Posts",
     "alerts" => "Alerts",
     "users" => "Users",
     "reports" => "Reports",
+    "bodyTypes" => "Body Types",
     "createBodyType" => "Create Body Type",
-    "trash" => "Trash"
+    "trash" => "Trash",
+    "editProfile" => "Edit Profile",
+    "logout" => "Log out",
+
 ];

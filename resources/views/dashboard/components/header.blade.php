@@ -27,12 +27,12 @@
                             <div class="avatar"><img src="{{asset('assets/image/profile.png')}}" alt="avatar"><i></i></div><span class="user-name">{{auth()->user()->name}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href=""><i class="feather icon-user"></i> @lang('lang.editProfile')</a>
+                            <a class="dropdown-item" href=""><i class="feather icon-user"></i> @lang('global.editProfile')</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href=""
                                        onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();"
-                                        ><i class="feather icon-power"></i> @lang('lang.logout')</a>
+                                        ><i class="feather icon-power"></i> @lang('global.logout')</a>
                             <form id="logout-form" action="" method="POST" style="display: none;">
                                 @csrf
                             </form>
