@@ -29,6 +29,7 @@ class PostController extends Controller
         $validate = $request->validate([
             'title' => 'required',
             'price' => 'required|integer',
+            'user_id' => 'required|integer',
             'is_ask_price' => 'required|boolean',
             'maker' => 'required',
             'model' => 'required',
@@ -44,6 +45,8 @@ class PostController extends Controller
             'number_of_owners' => 'required|integer',
             'number_of_accidents' => 'required|integer',
         ]);
+
+        $post->fill($request->all());
 
         if ($post->save())
             return redirect()->route('post.index')->with(['success' => Lang::get('global.updateSuccess')]);
