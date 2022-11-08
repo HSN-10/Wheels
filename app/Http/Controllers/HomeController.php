@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Report;
+use App\Models\BodyType;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.home');
+        $postCount = Post::all()->count();
+        $bodyTypeCount = BodyType::all()->count();
+        $userCount = User::all()->count();
+        $reportCount = Report::all()->count();
+        return view('dashboard.home', compact(['postCount', 'bodyTypeCount', 'userCount', 'reportCount']));
     }
 }

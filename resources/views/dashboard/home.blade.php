@@ -13,7 +13,7 @@
                             </span>
                             <div class="stats-amount mr-3">
                                 <h3 class="heading-text text-bold-600" id="postsCount"
-                                    data-toggle="tooltip" data-placement="top" data-original-title="32423"></h3>
+                                    data-toggle="tooltip" data-placement="top" data-original-title="{{$postCount}}"></h3>
                                 <p class="sub-heading">@lang('global.posts')</p>
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                             </span>
                             <div class="stats-amount mr-3">
                                 <h3 class="heading-text text-bold-600" id="bodyTypesCount"
-                                    data-toggle="tooltip" data-placement="top" data-original-title=""></h3>
+                                    data-toggle="tooltip" data-placement="top" data-original-title="{{$bodyTypeCount}}"></h3>
                                 <p class="sub-heading">@lang('global.bodyTypes')</p>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                             </span>
                             <div class="stats-amount mr-3">
                                 <h3 class="heading-text text-bold-600" id="usersCount"
-                                    data-toggle="tooltip" data-placement="top" data-original-title=""></h3>
+                                    data-toggle="tooltip" data-placement="top" data-original-title="{{$userCount}}"></h3>
                                 <p class="sub-heading">@lang('global.users')</p>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                             </span>
                             <div class="stats-amount mr-3">
                                 <h3 class="heading-text text-bold-600" id="reportsCount"
-                                    data-toggle="tooltip" data-placement="top" data-original-title="324"></h3>
+                                    data-toggle="tooltip" data-placement="top" data-original-title="{{$reportCount}}"></h3>
                                 <p class="sub-heading">@lang('global.reports')</p>
                             </div>
                         </div>
@@ -94,10 +94,10 @@
 <script src="{{ asset('app-assets/vendors/js/extensions/numeral/numeral.js') }}"></script>
     <script src="{{ asset('app-assets/js/scripts/tooltip/tooltip.js') }}"></script>
     <script>
-        let postsCount = numeral(50000).format('0a');
-        let bodyTypesCount = numeral(100543).format('0a');
-        let usersCount = numeral(600).format('0a');
-        let reportsCount = numeral(51441).format('0a');
+        let postsCount = numeral({{$postCount}}).format('0a');
+        let bodyTypesCount = numeral({{$bodyTypeCount}}).format('0a');
+        let usersCount = numeral({{$userCount}}).format('0a');
+        let reportsCount = numeral({{$reportCount}}).format('0a');
         document.getElementById('postsCount').innerText = postsCount;
         document.getElementById('bodyTypesCount').innerText = bodyTypesCount;
         document.getElementById('usersCount').innerText = usersCount;
