@@ -112,10 +112,9 @@
         $('.datatables').DataTable({
             "columns": [
                 { "width": "5%" },
-                { "width": "25%" },
-                { "width": "35%" },
-                { "width": "20%" },
+                { "width": "60%" },
                 { "width": "10%" },
+                { "width": "20%" },
                 { "width": "5%" }
             ]
         });
