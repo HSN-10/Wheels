@@ -31,10 +31,9 @@ class HomeController extends Controller
         /**
      * Report Post
      * @param Request $request
-     * @param Post $post
      * @return response
      */
-    public function report(Request $request, Post $post)
+    public function report(Request $request)
     {
         try{
             $validate = Validator::make($request->all(),[
@@ -48,7 +47,7 @@ class HomeController extends Controller
                     'errors' => $validate->errors()
                 ], 400);
 
-            $report = $post->report()->create($request->all());
+            $report = Report::create($request->only(['post_id', 'comment']));
             return response()->json($report, 201);
         }catch(\Throwable $th){
             return response()->json([

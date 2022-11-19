@@ -14,7 +14,7 @@ class Report extends Model
         'post_id',
         'comment'
     ];
-    public function posts()
+    public function post()
     {
         return $this->belongsTo(Post::class);
     }

@@ -26,7 +26,7 @@ Route::prefix('auth')->controller(AuthController::class)->group(function(){
 Route::controller(HomeController::class)->group(function(){
     Route::get('bodyType', 'getBodyType');
     // TODO: NEED API FOR SEARCH
-    Route::post('report/{post}', 'report');
+    Route::post('report', 'report');
 });
 
 Route::middleware('auth:sanctum')->controller(UserController::class)->group(function(){
