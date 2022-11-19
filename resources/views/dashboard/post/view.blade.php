@@ -45,6 +45,9 @@
                                             <td>
                                                 <div class="d-none d-md-block">
                                                     <div class="btn-group">
+                                                        <a href="{{route('post.reports', $post)}}" class="btn btn-group btn-warning square">
+                                                            <i class="feather icon-alert-triangle mr-1"></i> @lang('global.reports')
+                                                        </a>
                                                         <a href="{{route('post.edit', $post)}}" class="btn btn-group btn-info square">
                                                             <i class="fas fa-edit mr-1"></i> @lang('global.edit')
                                                         </a>
@@ -61,6 +64,8 @@
                                                         <div class="dropdown-menu" style="right: -150% !important;">
                                                             <a class="dropdown-item"
                                                                 href="{{route('post.edit', $post)}}"><i class="fas fa-edit mr-1"></i> @lang('global.edit')</a>
+                                                            <a class="dropdown-item"
+                                                                href="{{route('post.reports', $post)}}"><i class="fas fa-edit mr-1"></i> @lang('global.reports')</a>
                                                             <a class="dropdown-item confirm-text text-danger" data-post="{{$post->id}}"
                                                                 href="" onclick="event.preventDefault();"
                                                             ><i class="fas fa-trash mr-1"></i> @lang('global.delete')</a>

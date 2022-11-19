@@ -75,4 +75,10 @@ class PostController extends Controller
         else
             return redirect()->back()->with(['error' => Lang::get('global.undoError')]);
     }
+
+    public function reports(Post $post)
+    {
+        $reports = $post->reports;
+        return view('dashboard.post.reports', compact(['reports']));
+    }
 }

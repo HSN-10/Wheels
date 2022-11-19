@@ -57,6 +57,7 @@ Route::prefix('dashboard')->group(function(){
         Route::delete('/{post}', 'destroy')->name('post.destroy');
         Route::get('/trash', 'trash')->name('post.trash');
         Route::get('/{id}/undo', 'undo')->name('post.undo');
+        Route::get('/{post}/reports', 'reports')->name('post.reports');
     });
 
 });

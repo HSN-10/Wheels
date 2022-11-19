@@ -76,4 +76,5 @@ return [
     "scrap" => "Scrap",
     "numberOfOwner" => "Number Of Owner",
     "numberOfaccidents" => "Number Of accidents",
+    "comment" => "Comment"
 ];
