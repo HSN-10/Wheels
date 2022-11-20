@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -37,6 +38,8 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->save();
+
+            $user = new UserCollection($user);
             return response()->json($user, 200);
 
         }catch(\Throwable $th){

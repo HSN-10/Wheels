@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostCollection;
+use App\Http\Resources\CounterOfferCollection;
 use App\Models\Post;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +20,8 @@ class PostController extends Controller
     {
         try{
             $lastPosts =  Post::orderBy('created_at', 'desc')->limit(10)->get();
-            return response()->json($lastPosts, 200);
+            $posts = PostCollection::collection($lastPosts);
+            return response()->json($posts, 200);
         }catch(\Throwable $th){
             return response()->json([
                 'status' => 500,
@@ -35,6 +37,7 @@ class PostController extends Controller
     public function post(Post $post)
     {
         try{
+            return new PostCollection($post);
             return response()->json($post, 200);
         }catch(\Throwable $th){
             return response()->json([
@@ -78,7 +81,7 @@ class PostController extends Controller
                     'errors' => $validate->errors()
                 ], 400);
 
-            $post = Auth::user()->posts()->create($request->all());
+            $post = new PostCollection(Auth::user()->posts()->create($request->all()));
 
             return response()->json($post, 201);
 
@@ -100,6 +103,14 @@ class PostController extends Controller
     public function edit(Post $post, Request $request)
     {
         try{
+            $user = Auth::user();
+            if($user->id != $post->user_id)
+                return response()->json([
+                    'status' => 401,
+                    'title' => 'Unauthorized',
+                    'errors' => 'You don\'t have access to delete this post'
+                ], 401);
+
             $validate = Validator::make($request->all(),[
                 'title' => 'required',
                 'price' => 'required|integer',
@@ -144,7 +155,9 @@ class PostController extends Controller
             $post->number_of_accidents = $request->number_of_accidents;
             $post->save();
 
-            return $post;
+            $post = new PostCollection($post);
+
+            return response()->json($post, 201);
         }catch(\Throwable $th){
             return response()->json([
                 'status' => 500,
@@ -170,6 +183,7 @@ class PostController extends Controller
                 ], 401);
             $post->delete();
             $post->save();
+            $post = new PostCollection($post);
             return response()->json($post,200);
         }catch(\Throwable $th){
             return response()->json([
@@ -202,7 +216,7 @@ class PostController extends Controller
                 ], 400);
 
             $counterOffer = $post->counter_offers()->create($request->all());
-
+            $counterOffer = new CounterOfferCollection($counterOffer);
             return response()->json($counterOffer, 201);
 
         }catch(\Throwable $th){
@@ -221,7 +235,8 @@ class PostController extends Controller
     public function counterOffers()
     {
         try{
-            return Auth::user()->counter_offers()->get();
+            $counterOffer = CounterOfferCollection::collection(Auth::user()->counter_offers()->get());
+            return response()->json($counterOffer, 200);
         }catch(\Throwable $th){
             return response()->json([
                 'status' => 500,

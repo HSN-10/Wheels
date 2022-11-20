@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Adresource;
+use App\Http\Resources\BodyTypeCollection;
 use App\Models\BodyType;
 use App\Models\Post;
 use App\Models\Report;
@@ -18,7 +20,8 @@ class HomeController extends Controller
     public function getBodyType()
     {
         try{
-            $bodyType = BodyType::all();
+            $bodyType = BodyTypeCollection::collection(BodyType::all());
+            //return new BodyTypeCollection(BodyType::all());
             return response()->json($bodyType, 200);
         }catch(\Throwable $th){
             return response()->json([
@@ -31,6 +34,7 @@ class HomeController extends Controller
         /**
      * Report Post
      * @param Request $request
+
      * @return response
      */
     public function report(Request $request)
