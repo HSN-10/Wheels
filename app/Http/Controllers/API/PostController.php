@@ -37,7 +37,7 @@ class PostController extends Controller
     public function post(Post $post)
     {
         try{
-            return new PostCollection($post);
+            $post = new PostCollection($post);
             return response()->json($post, 200);
         }catch(\Throwable $th){
             return response()->json([
