@@ -8,6 +8,8 @@ use App\Http\Resources\CounterOfferCollection;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -144,7 +146,7 @@ class PostController extends Controller
             $validate = Validator::make($request->all(),[
                 'title' => 'required',
                 'price' => 'required|integer',
-                'is_ask_price' => 'required|boolean',
+                'negotiable' => 'required|boolean',
                 'maker' => 'required',
                 'model' => 'required',
                 'colour' => 'required',
@@ -166,23 +168,36 @@ class PostController extends Controller
                     'title' => 'One or more validation errors occurred',
                     'errors' => $validate->errors()
                 ], 400);
+                $path = 'images/Post';
+                $edit = [
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'price' => $request->price,
+                    'negotiable' => $request->negotiable,
+                    'type_post' => $request->type_post,
+                    'maker' => $request->maker,
+                    'model' => $request->model,
+                    'colour' => $request->colour,
+                    'years' => $request->years,
+                    'body_type_id' => $request->body_type_id,
+                    'transmission_type' => $request->transmission_type,
+                    'kilometrage' => $request->kilometrage,
+                    'gas_type' => $request->gas_type,
+                    'doors' => $request->doors,
+                    'engine_cylinders' => $request->engine_cylinders,
+                    'condition' => $request->condition,
+                    'number_of_owners' => $request->number_of_owners,
+                    'number_of_accidents' => $request->number_of_accidents,
+                ];
 
-            $post->title = $request->title;
-            $post->price = $request->price;
-            $post->is_ask_price = $request->is_ask_price;
-            $post->maker = $request->maker;
-            $post->model = $request->model;
-            $post->colour = $request->colour;
-            $post->years = $request->years;
-            $post->body_type_id = $request->body_type_id;
-            $post->transmission_type = $request->transmission_type;
-            $post->kilometrage = $request->kilometrage;
-            $post->gas_type = $request->gas_type;
-            $post->doors = $request->doors;
-            $post->engine_cylinders = $request->engine_cylinders;
-            $post->condition = $request->condition;
-            $post->number_of_owners = $request->number_of_owners;
-            $post->number_of_accidents = $request->number_of_accidents;
+                if ($request->file('image')) {
+                    if (!File::exists('public/' . $post->image))
+                        Storage::delete('public/' . $post->image);
+                    $saveImage = $request->file('image')->store('public/' . $path);
+                    $request->image = $path . '/' . basename($saveImage);
+                    $edit += ['image' => $request->image];
+                }
+                $post->fill($edit);
             $post->save();
 
             $post = new PostCollection($post);
