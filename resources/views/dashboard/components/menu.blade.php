@@ -17,7 +17,7 @@
                     <span class="menu-title" data-i18n="@lang('global.bodyTypes')">@lang('global.bodyTypes')</span>
                 </a>
                 <ul class="menu-content">
-                    <li @if(Request::route()->getName()=='BodyType.create') class="active" @endif>
+                    <li @if(Request::route()->getName()=='bodytype.create') class="active" @endif>
                         <a class="menu-item" href="{{route('bodytype.create')}}" data-i18n="@lang('global.create') @lang('global.bodyType')">
                             <i class="fa fa-plus icon-menu"></i> @lang('global.create') @lang('global.bodyType')
                         </a>

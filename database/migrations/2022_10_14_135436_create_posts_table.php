@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->integer('price');
-            $table->boolean('is_ask_price');
+            $table->boolean('negotiable')->default(true);
+            $table->string('image');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');;
             $table->integer('type_post')->default(1);

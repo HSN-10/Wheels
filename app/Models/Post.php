@@ -16,7 +16,8 @@ class Post extends Model
         'title',
         'description',
         'price',
-        'is_ask_price',
+        'negotiable',
+        'image',
         'user_id',
 
         // car details
@@ -41,10 +42,6 @@ class Post extends Model
     public function body_type()
     {
         return $this->belongsTo(BodyType::class);
-    }
-    public function images()
-    {
-        return $this->hasMany(ImageOfPost::class);
     }
     public function reports()
     {

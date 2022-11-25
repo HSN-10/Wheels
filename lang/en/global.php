@@ -45,7 +45,7 @@ return [
     "phone" => "Phone",
     "role" => "Role",
     "admin" => "Admin",
-    "typePost" => "Type Post",
+    "postType" => "Post Type",
     "title" => "Title",
     "description" => "Description",
     "price" => "Price",
@@ -54,7 +54,6 @@ return [
     "sale" => "Sale",
     "request" => "Request",
     "car" => "Car",
-    "is_ask_price" => "Negotiable",
     "maker" => "Maker",
     "model" => "Model",
     "colour" => "Colour",
@@ -76,5 +75,7 @@ return [
     "scrap" => "Scrap",
     "numberOfOwner" => "Number Of Owner",
     "numberOfaccidents" => "Number Of accidents",
-    "comment" => "Comment"
+    "comment" => "Comment",
+    "charPosts" => "Last Two Weeks Posts",
+    "numberOfReports" => "No. Reports"
 ];

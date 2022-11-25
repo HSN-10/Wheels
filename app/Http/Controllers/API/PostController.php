@@ -58,7 +58,8 @@ class PostController extends Controller
             $validate = Validator::make($request->all(),[
                 'title' => 'required',
                 'price' => 'required|integer',
-                'is_ask_price' => 'required|boolean',
+                'negotiable' => 'required|integer',
+                'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:10000',
                 'maker' => 'required',
                 'model' => 'required',
                 'colour' => 'required',
@@ -74,6 +75,10 @@ class PostController extends Controller
                 'number_of_accidents' => 'required|integer',
             ]);
 
+
+
+
+
             if($validate->fails())
                 return response()->json([
                     'status' => 400,
@@ -81,7 +86,32 @@ class PostController extends Controller
                     'errors' => $validate->errors()
                 ], 400);
 
-            $post = new PostCollection(Auth::user()->posts()->create($request->all()));
+
+            $path = 'images/Post';
+            $saveImage = $request->file('image')->store('public/' . $path);
+            $request->image = $path .'/'. basename($saveImage);
+
+            $post = new PostCollection(Auth::user()->posts()->create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'price' => $request->price,
+                'negotiable' => $request->negotiable,
+                'image' => $request->image,
+                'type_post' => $request->type_post,
+                'maker' => $request->maker,
+                'model' => $request->model,
+                'colour' => $request->colour,
+                'years' => $request->years,
+                'body_type_id' => $request->body_type_id,
+                'transmission_type' => $request->transmission_type,
+                'kilometrage' => $request->kilometrage,
+                'gas_type' => $request->gas_type,
+                'doors' => $request->doors,
+                'engine_cylinders' => $request->engine_cylinders,
+                'condition' => $request->condition,
+                'number_of_owners' => $request->number_of_owners,
+                'number_of_accidents' => $request->number_of_accidents,
+            ]));
 
             return response()->json($post, 201);
 

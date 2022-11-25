@@ -30,8 +30,9 @@
                                 <thead>
                                     <tr>
                                         <th>@lang('global.id')</th>
+                                        <th>@lang('global.image')</th>
                                         <th>@lang('global.title')</th>
-                                        <th>@lang('global.typePost')</th>
+                                        <th>@lang('global.postType')</th>
                                         <th>@lang('global.user')</th>
                                         <th>@lang('global.options')</th>
                                     </tr>
@@ -40,6 +41,7 @@
                                     @foreach($posts as $post)
                                         <tr>
                                             <td>{{$post->id}}</td>
+                                            <td><img src="{{asset('storage/' . $post->image)}}" width="250"></td>
                                             <td>{{$post->title}}</td>
                                             <td>{{$post->type_post==1?Lang::get('global.sale'):Lang::get('global.request')}}</td>
                                             <td>{{$post->user->name}}</td>
@@ -70,8 +72,9 @@
                                 <tfoot>
                                     <tr>
                                         <th>@lang('global.id')</th>
+                                        <th>@lang('global.image')</th>
                                         <th>@lang('global.title')</th>
-                                        <th>@lang('global.typePost')</th>
+                                        <th>@lang('global.postType')</th>
                                         <th>@lang('global.user')</th>
                                         <th>@lang('global.options')</th>
                                     </tr>
@@ -112,7 +115,8 @@
         $('.datatables').DataTable({
             "columns": [
                 { "width": "5%" },
-                { "width": "60%" },
+                { "width": "20%" },
+                { "width": "40%" },
                 { "width": "10%" },
                 { "width": "20%" },
                 { "width": "5%" }

@@ -25,7 +25,7 @@ class BodyTypeController extends Controller
 
     public function store(Request $request)
     {
-        $path = 'images/BodyTpye';
+        $path = 'images/BodyType';
         $validate = Validator::make($request->all(),[
             'name' => 'required|string',
             'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:10000',

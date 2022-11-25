@@ -39,17 +39,7 @@
                                             </span>
                                         @enderror
                                     </fieldset>
-                                    <fieldset class="form-group col-4 mb-2">
-                                        <label for="description">@lang('global.description')</label>
-                                        <input type="text" class="form-control @error('description') is-invalid text-danger @enderror" id="description"
-                                                placeholder="@lang('global.description')" name="description" value="{{$post->description}}">
-                                        @error('description')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </fieldset>
-                                    <fieldset class="form-group col-4 mb-2">
+                                    <fieldset class="form-group col-4 mb-1">
                                         <label for="price">@lang('global.price')</label>
                                         <input type="number" class="form-control @error('price') is-invalid text-danger @enderror" id="price"
                                                 placeholder="@lang('global.price')" name="price" value="{{$post->price}}">
@@ -59,44 +49,74 @@
                                             </span>
                                         @enderror
                                     </fieldset>
-                                    <fieldset class="form-group col-4 mb-2 @error('is_ask_price') has-error @enderror">
-                                        <label for="is_ask_price">@lang('global.is_ask_price')</label>
-                                        <select name="is_ask_price" class="select2 form-control withoutSearch @error('is_ask_price') is-invalid text-danger @enderror" id="is_ask_price">
-                                            <option value="1" @if($post->is_ask_price) selected @endif>@lang('global.negotiable')</option>
-                                            <option value="0" @if(!$post->is_ask_price) selected @endif>@lang('global.non-negotiable')</option>
+                                    <fieldset class="form-group col-4 mb-2 @error('negotiable') has-error @enderror">
+                                        <label for="negotiable">@lang('global.negotiable')</label>
+                                        <select name="negotiable" class="select2 form-control withoutSearch @error('negotiable') is-invalid text-danger @enderror" id="is_ask_price">
+                                            <option value="1" @if($post->negotiable) selected @endif>@lang('global.negotiable')</option>
+                                            <option value="0" @if(!$post->negotiable) selected @endif>@lang('global.non-negotiable')</option>
                                         </select>
-                                        @error('is_ask_price')
+                                        @error('negotiable')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                     </fieldset>
-                                    <fieldset class="form-group col-4 mb-2 @error('type_post') has-error @enderror">
-                                        <label for="type_post">@lang('global.typePost')</label>
-                                        <select name="type_post" class="select2 form-control withoutSearch @error('type_post') is-invalid text-danger @enderror" id="type_post">
-                                            <option value="1" @if($post->type_post==1) selected @endif>@lang('global.sale')</option>
-                                            <option value="0" @if($post->type_post==0) selected @endif>@lang('global.request')</option>
-                                        </select>
-                                        @error('type_post')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <fieldset class="form-group col-5 mb-2">
+                                        <label for="description">@lang('global.description')</label>
+                                        <textarea class="form-control @error('description') is-invalid text-danger @enderror" id="description"
+                                        placeholder="@lang('global.description')" name="description" rows="7">{{$post->description}}</textarea>
+                                        @error('description')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </fieldset>
-                                    <fieldset class="form-group col-4 mb-2 @error('user_id') has-error @enderror">
-                                        <label for="user_id">@lang('global.user')</label>
-                                        <select name="user_id" class="select2 form-control withoutSearch @error('user_id') is-invalid text-danger @enderror" id="user_id">
-                                            @foreach ($users as $user)
-                                                <option value="{{$user->id}}" @if($post->user_id==$user->id) selected @endif>{{$user->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('user_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </fieldset>
+
+                                    <div class="row col-5">
+                                        <fieldset class="form-group col-12 mb-2">
+                                            <label for="basicInput">@lang('global.image')</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input @error('image') is-invalid text-danger @enderror" id="upload" name="image"
+                                                        accept="image/x-png,image/gif,image/jpeg,image/svg,image/webp">
+                                                <label class="custom-file-label" for="upload">@lang('global.chooseFile')</label>
+                                                @error('image')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                        </fieldset>
+                                        <fieldset class="form-group col-6 mb-2 @error('type_post') has-error @enderror">
+                                            <label for="type_post">@lang('global.postType')</label>
+                                            <select name="type_post" class="select2 form-control withoutSearch @error('type_post') is-invalid text-danger @enderror" id="type_post">
+                                                <option value="1" @if($post->type_post==1) selected @endif>@lang('global.sale')</option>
+                                                <option value="0" @if($post->type_post==0) selected @endif>@lang('global.request')</option>
+                                            </select>
+                                            @error('type_post')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </fieldset>
+                                        <fieldset class="form-group col-6 mb-2 @error('user_id') has-error @enderror">
+                                            <label for="user_id">@lang('global.user')</label>
+                                            <select name="user_id" class="select2 form-control withoutSearch @error('user_id') is-invalid text-danger @enderror" id="user_id">
+                                                @foreach ($users as $user)
+                                                    <option value="{{$user->id}}" @if($post->user_id==$user->id) selected @endif>{{$user->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('user_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-2">
+                                        <img class="rounded img-thumbnail mt-1" width="100%" src="{{ asset('storage/'.$post->image) }}">
+                                    </div>
                                 </div>
+
 
                                 <h4 class="form-section"><i class="fas fa-list"></i> @lang('global.edit') @lang('global.car')</h4>
                                 <div class="row">

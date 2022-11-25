@@ -29,8 +29,9 @@
                                 <thead>
                                     <tr>
                                         <th>@lang('global.id')</th>
+                                        <th>@lang('global.image')</th>
                                         <th>@lang('global.title')</th>
-                                        <th>@lang('global.typePost')</th>
+                                        <th>@lang('global.postType')</th>
                                         <th>@lang('global.user')</th>
                                         <th>@lang('global.options')</th>
                                     </tr>
@@ -39,9 +40,10 @@
                                     @foreach($posts as $post)
                                         <tr>
                                             <td>{{$post->id}}</td>
+                                            <td><img src="{{asset('storage/' . $post->image)}}" width="300"></td>
                                             <td>{{$post->title}}</td>
                                             <td>{{$post->type_post==1?Lang::get('global.sale'):Lang::get('global.request')}}</td>
-                                            <td>{{$post->user->name}}</td>
+                                            <td><a href="{{route('user.edit', $post->user)}}">{{$post->user->name}}</a></td>
                                             <td>
                                                 <div class="d-none d-md-block">
                                                     <div class="btn-group">
@@ -83,8 +85,9 @@
                                 <tfoot>
                                     <tr>
                                         <th>@lang('global.id')</th>
+                                        <th>@lang('global.image')</th>
                                         <th>@lang('global.title')</th>
-                                        <th>@lang('global.typePost')</th>
+                                        <th>@lang('global.postType')</th>
                                         <th>@lang('global.user')</th>
                                         <th>@lang('global.options')</th>
                                     </tr>
@@ -127,9 +130,10 @@
             let table = $('.datatables').DataTable({
                     columns: [
                         { "width": "5%" },
-                        { "width": "60%" },
-                        { "width": "10%" },
                         { "width": "20%" },
+                        { "width": "50%" },
+                        { "width": "10%" },
+                        { "width": "10%" },
                         { "width": "5%" }
                     ],
             });
