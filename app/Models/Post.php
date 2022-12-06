@@ -47,9 +47,9 @@ class Post extends Model
     {
         return $this->hasMany(Report::class);
     }
-    public function favorites()
+    public function favorite()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->hasOne(Favorite::class);
     }
     public function counter_offers()
     {

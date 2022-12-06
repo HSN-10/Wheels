@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FavoriteCollection;
 use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,4 +52,10 @@ class UserController extends Controller
         }
     }
 
+    public function favorites()
+    {
+        $favorites = Auth::user()->favorites()->get();
+        $col = FavoriteCollection::collection($favorites);
+        return response()->json($col, 200);
+    }
 }

@@ -29,11 +29,7 @@ class AuthController extends Controller
             ]);
 
             if($validate->fails())
-                return response()->json([
-                    'status' => 400,
-                    'title' => 'One or more validation errors occurred',
-                    'errors' => $validate->errors()
-                ], 400);
+                return response()->json($validate->errors(), 400);
 
 
             $user = User::create([
@@ -71,19 +67,12 @@ class AuthController extends Controller
                 'password' => 'required',
             ]);
             if($validate->fails())
-                return response()->json([
-                    'status' => 400,
-                    'title' => 'One or more validation errors occurred',
-                    'errors' => $validate->errors()
-                ], 400);
+                return response()->json($validate->errors(), 400);
 
             if(!Auth::attempt($request->only(['email', 'password'])))
                 return response()->json([
-                    'status' => 400,
-                    'title' => 'Authentication error',
-                    'errors' => 'Invalid username or password',
+                    'errors' => ['Invalid username or password'],
                 ], 400);
-
             $user = User::where('email', $request->email)->first();
 
 
@@ -99,5 +88,9 @@ class AuthController extends Controller
                 'errors' => $th->getMessage()
             ], 500);
         }
+    }
+    public function logout()
+    {
+        return auth()->logout();
     }
 }

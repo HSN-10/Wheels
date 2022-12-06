@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
+    Route::post('logout', 'logout');
 });
 
 Route::controller(HomeController::class)->group(function(){
@@ -32,6 +33,7 @@ Route::controller(HomeController::class)->group(function(){
 Route::middleware('auth:sanctum')->controller(UserController::class)->group(function(){
     Route::get('/user', function (Request $request) { return $request->user(); });
     Route::put('profile/edit', 'updateProfile');
+    Route::get('favorites', 'favorites');
 });
 
 Route::middleware('auth:sanctum')->controller(AlertController::class)->group(function(){
