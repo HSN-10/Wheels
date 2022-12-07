@@ -26,8 +26,9 @@ Route::prefix('auth')->controller(AuthController::class)->group(function(){
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('bodyType', 'getBodyType');
-    // TODO: NEED API FOR SEARCH
     Route::post('report', 'report');
+    Route::get('search/{title}', 'search');
+    Route::get('search/BodyType/{BodyType}', 'searchBodyType');
 });
 
 Route::middleware('auth:sanctum')->controller(UserController::class)->group(function(){
@@ -39,6 +40,7 @@ Route::middleware('auth:sanctum')->controller(UserController::class)->group(func
 Route::middleware('auth:sanctum')->controller(AlertController::class)->group(function(){
     Route::post('alert/create', 'createAlert');
     Route::get('alerts', 'alerts');
+    Route::delete('alert/{alert}/delete', 'delete_alert');
 });
 
 Route::controller(PostController::class)->group(function(){

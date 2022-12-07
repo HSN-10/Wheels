@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -20,21 +21,10 @@ class AlertController extends Controller
             $validate = Validator::make($request->all(),[
                 'price_from' => 'required|integer',
                 'price_to' => 'required|integer',
-                'years' => 'integer',
-                'body_type_id' => 'integer',
-                'kilometrage' => 'integer',
-                'doors' => 'integer',
-                'engine_cylinders' => 'integer',
-                'number_of_owners' => 'integer',
-                'number_of_accidents' => 'integer',
             ]);
 
             if($validate->fails())
-                return response()->json([
-                    'status' => 400,
-                    'title' => 'One or more validation errors occurred',
-                    'errors' => $validate->errors()
-                ], 400);
+                return response()->json($validate->errors(), 400);
 
             $alert = Auth::user()->alerts()->create($request->all());
 
@@ -56,6 +46,32 @@ class AlertController extends Controller
     {
         try{
             return Auth::user()->alerts()->get();
+        }catch(\Throwable $th){
+            return response()->json([
+                'status' => 500,
+                'title' => 'Internal Server Error',
+                'errors' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function delete_alert(Alert $alert)
+    {
+        try{
+            $user = Auth::user();
+            if($user->id != $alert->user_id)
+                return response()->json([
+                    'status' => 401,
+                    'title' => 'Unauthorized',
+                    'errors' => 'You don\'t have access to delete this post'
+                ], 401);
+            $alert->delete();
+            $alert->save();
+            return  response()->json([
+                'status' => 200,
+                'title' => 'Deleted',
+                'errors' => 'Alert is Deleted'
+            ], 200);
         }catch(\Throwable $th){
             return response()->json([
                 'status' => 500,

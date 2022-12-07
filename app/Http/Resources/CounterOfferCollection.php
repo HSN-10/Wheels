@@ -17,8 +17,8 @@ class CounterOfferCollection extends JsonResource
         return [
             'id' => $this->id,
             'price' => $this->price,
-            'post' => $this->post,
-            'user' => $this->user,
+            'post' => new PostCollection($this->post),
+            'user' => new UserCollection($this->user),
             'created_at' => $this->created_at
         ];
     }

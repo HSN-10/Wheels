@@ -61,7 +61,7 @@ class PostController extends Controller
                 'title' => 'required',
                 'price' => 'required|integer',
                 'negotiable' => 'required|integer',
-                'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:10000',
+                //'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:10000',
                 'maker' => 'required',
                 'model' => 'required',
                 'colour' => 'required',
@@ -89,16 +89,16 @@ class PostController extends Controller
                 ], 400);
 
 
-            $path = 'images/Post';
-            $saveImage = $request->file('image')->store('public/' . $path);
-            $request->image = $path .'/'. basename($saveImage);
+            // $path = 'images/Post';
+            // $saveImage = $request->file('image')->store('public/' . $path);
+            // $request->image = $path .'/'. basename($saveImage);
 
             $post = new PostCollection(Auth::user()->posts()->create([
                 'title' => $request->title,
                 'description' => $request->description,
                 'price' => $request->price,
                 'negotiable' => $request->negotiable,
-                'image' => $request->image,
+                //'image' => $request->image,
                 'type_post' => $request->type_post,
                 'maker' => $request->maker,
                 'model' => $request->model,

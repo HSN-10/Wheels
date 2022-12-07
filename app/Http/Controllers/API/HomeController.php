@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Adresource;
 use App\Http\Resources\BodyTypeCollection;
+use App\Http\Resources\PostCollection;
 use App\Models\BodyType;
 use App\Models\Post;
 use App\Models\Report;
@@ -60,5 +61,16 @@ class HomeController extends Controller
                 'errors' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function search($title)
+    {
+        $search = PostCollection::collection(Post::Where('title', 'like', "%$title%")->get());
+        return response()->json($search, 200);
+    }
+    public function searchBodyType($bodytype)
+    {
+        $filter = PostCollection::collection(Post::Where('body_type_id', $bodytype)->get());
+        return response()->json($filter, 200);
     }
 }

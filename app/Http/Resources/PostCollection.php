@@ -43,7 +43,7 @@ class PostCollection extends JsonResource
             'user' => new UserCollection($this->user),
             'price' => $this->price,
             'negotiable' => $this->negotiable == 1?true:false,
-            'image' => asset('storage/' . $this->image),
+            'image' => $this->image != null ? asset('storage/' . $this->image): null,
             'type_post' => $this->type_post == 1 ? 'Sale' : 'Request',
             'maker' => $this->maker,
             'model' => $this->model,
